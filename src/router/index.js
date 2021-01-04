@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 //官方的元件
 import Home from '@/components/HelloWorld'
+import Dashboard from '@/components/Dashboard'
 //自訂元件
 Vue.use(VueRouter)
 //啟用元件
@@ -10,7 +11,7 @@ export default new VueRouter({ //匯出到 main.js
         {
             name: '首頁',//元件呈現名稱
             path: '/index',// 元件路徑
-            component: Home,//對應的元件
+            component: Dashboard,//對應的元件
         },
     ]
 });
