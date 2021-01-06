@@ -6,7 +6,9 @@
 <script>
 export default{
   created(){
-    var api = 'https://vue-course-api.hexschool.io/api/chenghan0918/products'
+    console.log(process.env.APIPATH);
+    console.log(process.env. CUSTOMPATH);
+    var api = `${process.env.APIPATH}/api/${process.env. CUSTOMPATH}/products`
     this.$http.get(api).then((response) => {
       console.log(response.data)
     })
