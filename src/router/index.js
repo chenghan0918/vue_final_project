@@ -2,7 +2,8 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 //官方的元件
 import Product from '@/components/Product'; 
-import Dashboard from '@/components/Dashboard'
+import Dashboard from '@/components/Dashboard';
+import Login from '@/components/pages/Login';
 //自訂元件
 Vue.use(VueRouter)
 //啟用元件
@@ -20,5 +21,10 @@ export default new VueRouter({ //匯出到 main.js
                 } 
             ]
         },
+        {
+            name: 'login',
+            path: '/login',
+            component: Login
+        }
     ]
 });
