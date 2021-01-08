@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import 'bootstrap' ;
 //官方的元件
 import Product from '@/components/Product'; 
 import Dashboard from '@/components/Dashboard';

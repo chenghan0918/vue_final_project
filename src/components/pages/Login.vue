@@ -1,6 +1,6 @@
 <template>
     <div>
-         <form @submit.prevent="login">
+         <form class="form-signin" @submit.prevent="login" >
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
     <label for="inputEmail" class="visually-hidden">Email address</label>
     <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus v-model="user.username">
@@ -21,17 +21,20 @@ export default{
     data(){
         return{
             user:{
-                usernames:'',
+                username:'',
                 psssword:'',
             }
         }
     },
     methods:{
         login(){
-            const api = 'https://vue-course-api.hexschool.io/api/admin/signin'
+            const api = 'https://vue-course-api.hexschool.io/admin/signin'
             const vm = this;
-            this.$https.post(api,vm.user).then((response) =>{
-                console.log(reponse.data);
+            this.$http.post(api,vm.user).then((response) =>{
+                console.log(response.data);
+                if(response.data.success){
+                  vm.$router.push('/index');
+                }
             })
         }
     }
