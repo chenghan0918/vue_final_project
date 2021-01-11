@@ -12,7 +12,7 @@ export default new VueRouter({ //匯出到 main.js
     routes:[ //路由設定
         {
             name: '首頁',//元件呈現名稱
-            path: '/index',// 元件路徑
+            path: '/',// 元件路徑
             component: Dashboard,//對應的元件
             children: [
                 {
