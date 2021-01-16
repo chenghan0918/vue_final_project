@@ -216,7 +216,7 @@ export default {
     updateproduct(){
       var api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product`;
       var vm = this;
-      this.$http.post(api,{data:vm.tempProduct}).then((response) => {
+      this.$http.post(api,{data: vm.tempProduct}).then((response) => {
         console.log(response.data);
       });
     }
