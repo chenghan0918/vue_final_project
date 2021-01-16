@@ -14,16 +14,18 @@ export default new VueRouter({ //匯出到 main.js
             name: '首頁',//元件呈現名稱
             path: '/',// 元件路徑
             component: Dashboard,//對應的元件
+            meta:{requiredAuth:true},
             children: [
                 {
                     name: '產品',//元件呈現名稱
                     path: 'product',// 元件路徑
                     component: Product,//
+                    meta:{requiredAuth:true},
                 } 
-            ]
+            ],
         },
         {
-            name: 'login',
+            name: '登入',
             path: '/login',
             component: Login
         }
