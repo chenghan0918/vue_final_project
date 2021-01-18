@@ -6,9 +6,10 @@ import VueAxios from 'vue-axios'
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 Vue.use(VueAxios, axios);
-
+Vue.component('Loading',Loading);//全域方式啟動
 Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
