@@ -83,7 +83,7 @@
                     id="customFile"
                     class="form-control"
                     ref="files"
-                    @click="uploadFile"
+                    @change="uploadFile"
                   />
                 </div>
                 <img :src="tempProduct.imageUrl" class="img-fluid" alt="" />
@@ -187,7 +187,9 @@
             <button type="button" class="btn btn-secondary" data-dismiss="modal">
               Close
             </button>
-            <button type="button" class="btn btn-primary" @click="updateproduct">Save changes</button>
+            <button type="button" class="btn btn-primary" @click="updateproduct">
+              Save changes
+            </button>
           </div>
         </div>
       </div>
@@ -200,10 +202,10 @@ export default {
   data() {
     return {
       products: [],
-      tempProduct:{},
-      isLoading:false,
-      status:{
-        fileUploading:false,
+      tempProduct: {},
+      isLoading: false,
+      status: {
+        fileUploading: false,
       },
     };
   },
@@ -211,45 +213,47 @@ export default {
     getProducts() {
       var api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/products`;
       var vm = this;
-      vm.isLoading=true;
+      vm.isLoading = true;
       this.$http.get(api).then((response) => {
         console.log(response.data);
         vm.products = response.data.products;
-        vm.isLoading=false;
+        vm.isLoading = false;
       });
     },
     openModal() {
       $("#productModal").modal("show");
     },
-    updateproduct(){
+    updateproduct() {
       var api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product`;
       var vm = this;
-      this.$http.post(api,{data: vm.tempProduct}).then((response) => {
+      this.$http.post(api, { data: vm.tempProduct }).then((response) => {
         console.log(response.data);
       });
     },
-    uploadFile(){
+    uploadFile() {
       console.log(this);
       const uploadFile = this.$refs.files.files[0];
       console.log(uploadFile);
       const vm = this;
       const formData = new FormData();
-      formData.append('file-to-upload',uploadFile);
+      formData.append("file-to-upload", uploadFile);
       const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/upload`;
-      vm.status.fileUploading=true;
-      this.$http.post(url,formData,{
-        header:{
-          'Content-Type': 'multipart/form-data'
-        }
-      }).then(response =>{
-        console.log(response.data);
-        vm.status.fileUploading=false;
-        if(response.data.success){
-          //vm.tempProduct.imageUrl = response.data.imageUrl;
-          vm.$set(vm.tempProduct,'imageUrl',response.data.imageUrl)
-        }
-      })
-    }
+      vm.status.fileUploading = true;
+      this.$http
+        .post(url, formData, {
+          header: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
+          vm.status.fileUploading = false;
+          if (response.data.success) {
+            //vm.tempProduct.imageUrl = response.data.imageUrl;
+            vm.$set(vm.tempProduct, "imageUrl", response.data.imageUrl);
+          }
+        });
+    },
   },
   created() {
     this.getProducts();

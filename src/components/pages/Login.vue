@@ -1,44 +1,61 @@
 <template>
-    <div>
-         <form class="form-signin" @submit.prevent="login" >
-    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-    <label for="inputEmail" class="visually-hidden">Email address</label>
-    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus v-model="user.username">
-    <label for="inputPassword" class="visually-hidden">Password</label>
-    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required v-model="user .password">
-    <div class="checkbox mb-3">
-      <label>
-        <input type="checkbox" value="remember-me"> Remember me
-      </label>
-    </div>
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-    <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
-  </form>
-    </div>
+  <div>
+    <form class="form-signin" @submit.prevent="login">
+      <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+      <label for="inputEmail" class="visually-hidden">Email address</label>
+      <input
+        type="email"
+        id="inputEmail"
+        class="form-control"
+        placeholder="Email address"
+        required
+        autofocus
+        v-model="user.username"
+      />
+      <label for="inputPassword" class="visually-hidden">Password</label>
+      <input
+        type="password"
+        id="inputPassword"
+        class="form-control"
+        placeholder="Password"
+        required
+        v-model="user.password"
+      />
+      <div class="checkbox mb-3">
+        <label> <input type="checkbox" value="remember-me" /> Remember me </label>
+      </div>
+      <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+      <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
+    </form>
+  </div>
 </template>
 <script>
-export default{
-    data(){
-        return{
-            user:{
-                username:'',
-                psssword:'',
-            }
+export default {
+  data() {
+    return {
+      user: {
+        username: "",
+        psssword: "",
+      },
+    };
+  },
+  methods: {
+    login() {
+      const api = "https://vue-course-api.hexschool.io/admin/signin";
+      const vm = this;
+      this.$http.post(api, vm.user).then((response) => {
+        console.log(response.data);
+        if (response.data.success) {
+          const token = response.data.token;
+          const expired = response.data.expired;
+          console.log(token, expired);
+          document.cookie = `test = ${token}; expires=${new Date(expired)}`;
+          vm.$router.push("/");
         }
+      });
     },
-    methods:{
-        login(){
-            const api = 'https://vue-course-api.hexschool.io/admin/signin'
-            const vm = this;
-            this.$http.post(api,vm.user).then((response) =>{
-                console.log(response.data);
-                if(response.data.success){
-                  vm.$router.push('/');
-                }
-            })
-        }
-    }
-}
+  },
+};
 </script>
 <style scoped>
 html,
@@ -83,6 +100,4 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
-
-
 </style>
