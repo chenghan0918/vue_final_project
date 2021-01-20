@@ -251,12 +251,14 @@ export default {
           if (response.data.success) {
             //vm.tempProduct.imageUrl = response.data.imageUrl;
             vm.$set(vm.tempProduct, "imageUrl", response.data.imageUrl);
+          } else {
           }
         });
     },
   },
   created() {
     this.getProducts();
+    this.$bus.$emit("message:push", "這是一段訊息", "success");
   },
 };
 </script>
